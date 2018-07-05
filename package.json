@@ -1,0 +1,61 @@
+{
+  "name": "@node-sitecore/config",
+  "version": "1.0.0",
+  "description": "Shared configuration for a sitecore project",
+  "main": "src/index.js",
+  "private": false,
+  "author": "Romain Lenzotti",
+  "contributors": [
+
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "nconf": "^0.10.0"
+  },
+  "files": [
+    "bin/nsc.js",
+    "bin",
+    "src"
+  ],
+  "directories": {
+    "src": "./src",
+    "bin": "./bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NodeSitecore/sitecore-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NodeSitecore/sitecore-config/issues"
+  },
+  "homepage": "https://github.com/NodeSitecore/sitecore-config",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "gflow": "^1.10.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.1",
+    "proxyquire": "^2.0.1",
+    "semantic-release": "^15.5.0",
+    "sinon": "^5.0.10",
+    "sinon-chai": "^3.1.0",
+    "travis-deploy-once": "^5.0.0"
+  },
+  "scripts": {
+    "gflow-release-pre": "",
+    "semantic-release": "gflow release pre && semantic-release",
+    "travis-deploy-once": "travis-deploy-once",
+    "travis-coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "test": "npm run lint && nyc --reporter=html --reporter=text _mocha --recursive",
+    "prepublishOnly": "gflow release post",
+    "lint": "eslint \"{bin,src,test}/**/*.js\"",
+    "lint:fix": "eslint --fix  \"{bin,src,test}/**/*.js\""
+  },
+  "release": {
+    "branch": "production"
+  }
+}

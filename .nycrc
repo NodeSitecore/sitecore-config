@@ -1,0 +1,23 @@
+{
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "**/index.js",
+    "**/init.js",
+    "**/interfaces/*.js"
+  ],
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "check-coverage": true,
+  "lines": 90.4,
+  "statements": 90.45,
+  "functions": 89.47,
+  "branches": 78.57,
+  "all": true
+}
