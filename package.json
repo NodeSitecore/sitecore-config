@@ -5,9 +5,7 @@
   "main": "src/index.js",
   "private": false,
   "author": "Romain Lenzotti",
-  "contributors": [
-
-  ],
+  "contributors": [],
   "license": "MIT",
   "dependencies": {
     "nconf": "^0.10.0"
@@ -40,14 +38,14 @@
     "mocha": "^5.2.0",
     "nyc": "^12.0.1",
     "proxyquire": "^2.0.1",
-    "semantic-release": "^15.5.0",
+    "semantic-release": "^15.6.3",
     "sinon": "^5.0.10",
     "sinon-chai": "^3.1.0",
-    "travis-deploy-once": "^5.0.0"
+    "travis-deploy-once": "^5.0.1"
   },
   "scripts": {
     "gflow-release-pre": "",
-    "semantic-release": "gflow release pre && semantic-release",
+    "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "travis-coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "npm run lint && nyc --reporter=html --reporter=text _mocha --recursive",
