@@ -165,7 +165,7 @@ class Config {
    * @returns {*}
    */
   get foundationScriptsRoot() {
-    return formatPath(path.join(this.get('foundationRoot'), this.get('foundationScriptsRoot')));
+    return formatPath(`./${path.join(this.get('foundationRoot'), this.get('foundationScriptsRoot'))}`);
   }
 
   /**
@@ -206,6 +206,15 @@ class Config {
       foundationDirectory: this.foundationRoot,
       buildDirectory: this.buildRoot,
       themeBuildDirectory: this.themeWebsiteRoot.replace(process.cwd(), '.')
+    };
+  }
+
+  get moduleNameMapper() {
+    return {
+      '^@Foundation(.*)$': `${this.foundationScriptsRoot.replace('./', '<rootDir>/')}$1`,
+      '^@Feature(.*)$': `${this.featureRoot.replace('./', '<rootDir>/')}$1`,
+      '^@Project(.*)$': `${this.projectRoot.replace('./', '<rootDir>/')}$1`,
+      '^@/(.*)$': `${this.srcRoot.replace('./', '<rootDir>/')}/$1`
     };
   }
 

@@ -129,7 +129,7 @@ describe('Config', () => {
     });
 
     it('should return foundationScriptsRoot', () => {
-      expect(config.foundationScriptsRoot).to.contains(formatPath('src/Foundation/Core/code/Scripts'));
+      expect(config.foundationScriptsRoot).to.contains(formatPath('./src/Foundation/Core/code/Scripts'));
     });
 
     it('should return featureRoot', () => {
@@ -170,6 +170,15 @@ describe('Config', () => {
         bundleName: 'bundle',
         polyfills: 'polyfills',
         styleguide: 'styleguide'
+      });
+    });
+
+    it('should return moduleNameMapper object', () => {
+      expect(config.moduleNameMapper).to.deep.eq({
+        '^@/(.*)$': '<rootDir>/src/$1',
+        '^@Feature(.*)$': '<rootDir>/src/Feature$1',
+        '^@Foundation(.*)$': '<rootDir>/src/Foundation/Core/code/Scripts$1',
+        '^@Project(.*)$': '<rootDir>/src/Project$1'
       });
     });
   });
