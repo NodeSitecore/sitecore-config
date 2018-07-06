@@ -11,13 +11,10 @@
     "nconf": "^0.10.0"
   },
   "files": [
-    "bin/nsc.js",
-    "bin",
     "src"
   ],
   "directories": {
-    "src": "./src",
-    "bin": "./bin"
+    "src": "./src"
   },
   "repository": {
     "type": "git",
@@ -50,8 +47,8 @@
     "travis-coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "npm run lint && nyc --reporter=html --reporter=text _mocha --recursive",
     "prepublishOnly": "gflow release post",
-    "lint": "eslint \"{bin,src,test}/**/*.js\"",
-    "lint:fix": "eslint --fix  \"{bin,src,test}/**/*.js\""
+    "lint": "eslint \"{src,test}/**/*.js\"",
+    "lint:fix": "eslint --fix  \"{src,test}/**/*.js\""
   },
   "release": {
     "branch": "production"
