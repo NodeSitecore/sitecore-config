@@ -105,6 +105,14 @@ class Config {
   }
 
   /**
+   * Return the website theme root (example: `path/to/build/Website/themes/`).
+   * @returns {*|string}
+   */
+  get currentWebsiteRoot() {
+    return formatPath(path.join(this.instanceRoot, this.get('websiteRoot'), 'themes', this.currentWebsite));
+  }
+
+  /**
    * Path of the sitecore librairies
    * @returns {*|string}
    */

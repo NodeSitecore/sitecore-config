@@ -100,6 +100,10 @@ describe('Config', () => {
       expect(config.themeWebsiteRoot).to.contains(formatPath('build/Website/themes'));
     });
 
+    it('should return currentWebsiteRoot', () => {
+      expect(config.currentWebsiteRoot).to.contains(formatPath('build/Website/themes/Common'));
+    });
+
     it('should return sitecoreLibraries', () => {
       expect(config.sitecoreLibrariesRoot).to.contains(formatPath('build/Website/bin'));
     });
