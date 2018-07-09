@@ -200,6 +200,10 @@ class Config {
     return formatPath(path.join(this.get('projectRoot'), this.currentWebsite, '/code/Scripts/'));
   }
 
+  get currentProjectRoot() {
+    return formatPath(path.join(this.get('projectRoot'), this.currentWebsite, '/code/'));
+  }
+
   /**
    *
    * @returns {{src: string, featureDirectory: *, featureRoot: *, projectDirectory: *, projectRoot: *, foundationDirectory: *, buildDirectory: *, themeBuildDirectory: *|string}}

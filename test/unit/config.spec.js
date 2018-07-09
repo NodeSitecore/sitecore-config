@@ -147,6 +147,9 @@ describe('Config', () => {
     it('should return projectScriptsRoot', () => {
       expect(config.projectScriptsRoot).to.contains(formatPath('src/Project/Common/code/Scripts/'));
     });
+    it('should return currentProjectRoot', () => {
+      expect(config.currentProjectRoot).to.contains(formatPath('src/Project/Common/code/'));
+    });
 
     it('should return directories', () => {
       expect(config.directories).to.deep.eq({
