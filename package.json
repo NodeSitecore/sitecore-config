@@ -1,6 +1,6 @@
 {
   "name": "@node-sitecore/config",
-  "version": "1.0.0",
+  "version": "1.3.2",
   "description": "Shared configuration for a sitecore project",
   "main": "src/index.js",
   "private": false,
