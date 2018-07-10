@@ -27,7 +27,7 @@ $ npm install -g @node-sitecore/config
 ## Configuration fields
 
 Key | Default value | Tags | Description
----|---|---
+--- | --- | --- | ---
 currentWebsite | `Common` | Sitecore, Vuejs | Current code name of the sitecore website.
 solutionName | `Base` | Sitecore | Solution name of the Visual Studio project.
 siteUrl | `http://base.dev.local` |  Sitecore | Site url use on your local machine. You change this value in a separated file like `.dev.nsrc`.
@@ -60,11 +60,11 @@ bundles | `{...}` | Vuejs | Additional publish properties.
 Default value of publishProperties:
 ```json
 {
-  DeployOnBuild: 'true',
-  DeployDefaultTarget: 'WebPublish',
-  WebPublishMethod: 'FileSystem',
-  DeleteExistingFiles: 'false',
-  _FindDependencies: 'false'
+  "DeployOnBuild": "true",
+  "DeployDefaultTarget": "WebPublish",
+  "WebPublishMethod": "FileSystem",
+  "DeleteExistingFiles": "false",
+  "_FindDependencies": "false"
 }
 ```
 
@@ -73,9 +73,9 @@ Default value of publishProperties:
 Default value of bundles:
 ```json
 {
-  bundleName: 'bundle',
-  polyfills: 'polyfills',
-  styleguide: 'styleguide'
+  "bundleName": "bundle",
+  "polyfills": "polyfills",
+  "styleguide": "styleguide"
 }
 ```
 
