@@ -34,47 +34,47 @@ module.exports = {
      * Directory the Sitecore files instance.
      * @tags Sitecore
      */
-    instanceRoot: formatPath('<rootDir>/build'),
+    instanceRoot: '<rootDir>/build',
     /**
      * Source code directory.
      * @tags Sitecore
      */
-    srcRoot: formatPath('<rootDir>/src'),
+    srcRoot: '<rootDir>/src',
     /**
      * Website directory used by Sitecore.
      * @tags Sitecore
      */
-    websiteRoot: formatPath('<instanceDir>/Website'),
+    websiteRoot: '<instanceDir>/Website',
     /**
      * Foundation level directory (Helix structure).
      * @tags Sitecore
      */
-    foundationRoot: formatPath('<srcDir>/Foundation'),
+    foundationRoot: '<srcDir>/Foundation',
     /**
      * Scripts Foundation directory. Shortcut to the shared code.
      * @tags Sitecore
      */
-    foundationScriptsRoot: formatPath('<foundationDir>/Core/code/Scripts'),
+    foundationScriptsRoot: '<foundationDir>/Core/code/Scripts',
     /**
      * Feature level directory (Helix structure).
      * @tags Sitecore
      */
-    featureRoot: formatPath('<srcDir>/Feature'),
+    featureRoot: '<srcDir>/Feature',
     /**
      * Project level directory (Helix structure).
      * @tags Sitecore
      */
-    projectRoot: formatPath('<srcDir>/Project'),
+    projectRoot: '<srcDir>/Project',
     /**
      * Sitecore libraries directory.
      * @tags Sitecore
      */
-    sitecoreLibrariesRoot: formatPath('<instanceDir>/Website/bin'),
+    sitecoreLibrariesRoot: '<instanceDir>/Website/bin',
     /**
      * License path required by Sitecore.
      * @tags Sitecore
      */
-    licensePath: formatPath('<instanceDir>/Data/license.xml'),
+    licensePath: '<instanceDir>/Data/license.xml',
     /**
      * MsBuild Configuration (Release or Debug).
      * @tags MsBuild
@@ -84,7 +84,7 @@ module.exports = {
      * MsBuild .NET Tools-Version (1.0, 1.1, 2.0, 3.5, 4.0, 12.0, 14.0, 15.0, auto).
      * @tags MsBuild
      */
-    buildToolsVersion: 15.0,
+    buildToolsVersion: '15.0',
     /**
      * Maximal CPU-Count to use. (`-1`: MSBuild Default, `0`: Automatic selection, `> 0`: Concrete value).
      * @tags MsBuild
