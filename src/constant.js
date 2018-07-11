@@ -34,47 +34,47 @@ module.exports = {
      * Directory the Sitecore files instance.
      * @tags Sitecore
      */
-    instanceRoot: formatPath('./build'),
+    instanceRoot: formatPath('<rootDir>/build'),
     /**
      * Source code directory.
      * @tags Sitecore
      */
-    srcRoot: formatPath('./src'),
+    srcRoot: formatPath('<rootDir>/src'),
     /**
      * Website directory used by Sitecore.
      * @tags Sitecore
      */
-    websiteRoot: formatPath('./Website'),
+    websiteRoot: formatPath('<instanceDir>/Website'),
     /**
      * Foundation level directory (Helix structure).
      * @tags Sitecore
      */
-    foundationRoot: formatPath('./src/Foundation'),
+    foundationRoot: formatPath('<srcDir>/Foundation'),
     /**
      * Scripts Foundation directory. Shortcut to the shared code.
      * @tags Sitecore
      */
-    foundationScriptsRoot: formatPath('./Core/code/Scripts'),
+    foundationScriptsRoot: formatPath('<foundationDir>/Core/code/Scripts'),
     /**
      * Feature level directory (Helix structure).
      * @tags Sitecore
      */
-    featureRoot: formatPath('./src/Feature'),
+    featureRoot: formatPath('<srcDir>/Feature'),
     /**
      * Project level directory (Helix structure).
      * @tags Sitecore
      */
-    projectRoot: formatPath('./src/Project'),
+    projectRoot: formatPath('<srcDir>/Project'),
     /**
      * Sitecore libraries directory.
      * @tags Sitecore
      */
-    sitecoreLibrariesRoot: formatPath('./Website/bin'),
+    sitecoreLibrariesRoot: formatPath('<instanceDir>/Website/bin'),
     /**
      * License path required by Sitecore.
      * @tags Sitecore
      */
-    licensePath: formatPath('./Data/license.xml'),
+    licensePath: formatPath('<instanceDir>/Data/license.xml'),
     /**
      * MsBuild Configuration (Release or Debug).
      * @tags MsBuild

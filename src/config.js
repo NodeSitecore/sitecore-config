@@ -19,19 +19,19 @@ class Config {
       },
       {
         pattern: '<foundationDir>',
-        replacement: path.join('<rootDir>', this.nconf.get('foundationRoot'))
+        replacement: this.nconf.get('foundationRoot').replace(/^\.(\/|\\)/, '<rootDir>/')
       },
       {
         pattern: '<featureDir>',
-        replacement: path.join('<rootDir>', this.nconf.get('featureRoot'))
+        replacement: this.nconf.get('featureRoot').replace(/^\.(\/|\\)/, '<rootDir>/')
       },
       {
         pattern: '<projectDir>',
-        replacement: path.join('<rootDir>', this.nconf.get('projectRoot'))
+        replacement: this.nconf.get('projectRoot').replace(/^\.(\/|\\)/, '<rootDir>/')
       },
       {
         pattern: '<srcDir>',
-        replacement: path.join('<rootDir>', this.nconf.get('srcRoot'))
+        replacement: this.nconf.get('srcRoot').replace(/^\.(\/|\\)/, '<rootDir>/')
       },
       {
         pattern: '<themesDir>',
@@ -39,11 +39,11 @@ class Config {
       },
       {
         pattern: '<websiteDir>',
-        replacement: path.join('<instanceDir>', this.nconf.get('websiteRoot'))
+        replacement: this.nconf.get('websiteRoot').replace(/^\.(\/|\\)/, '<instanceDir>/')
       },
       {
         pattern: '<instanceDir>',
-        replacement: this.nconf.get('instanceRoot').replace('./', '<rootDir>/')
+        replacement: this.nconf.get('instanceRoot').replace(/^\.(\/|\\)/, '<rootDir>/')
       },
       { pattern: '<rootDir>', replacement: `${process.cwd()}` }
     ];
@@ -163,7 +163,7 @@ class Config {
    * @returns {*|string}
    */
   get sitecoreLibrariesRoot() {
-    return this.resolve('<instanceDir>', this.get('sitecoreLibrariesRoot'));
+    return this.resolve(this.get('sitecoreLibrariesRoot').replace(/^\.(\/|\\)/, '<instanceDir>'));
   }
 
   /**
@@ -171,7 +171,7 @@ class Config {
    * @returns {*|string}
    */
   get licensePath() {
-    return this.resolve('<instanceDir>', this.get('licensePath'));
+    return this.resolve(this.get('licensePath').replace(/^\.(\/|\\)/, '<instanceDir>'));
   }
 
   /**
@@ -219,7 +219,7 @@ class Config {
    * @returns {*}
    */
   get foundationScriptsRoot() {
-    return this.resolve('<foundationDir>', this.nconf.get('foundationScriptsRoot'));
+    return this.resolve(this.nconf.get('foundationScriptsRoot').replace(/^\.(\/|\\)/, '<foundationDir>'));
   }
 
   /**
