@@ -1,5 +1,4 @@
 const path = require('path');
-const formatPath = require('./format-path');
 
 module.exports = {
   /**
