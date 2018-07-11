@@ -17,6 +17,10 @@ module.exports = {
      */
     currentWebsite: 'Common',
     /**
+     * Master website. Shouldn't change. This code is used by localisation to find the MVP website.
+     */
+    masterWebsite: 'Common',
+    /**
      * Solution name of the Visual Studio project.
      * @tags Sitecore
      */
