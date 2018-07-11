@@ -15,7 +15,7 @@
 ## Features
 
 - Control over configuration values.
-- Support multiple configuration files by environment (`.development.nsrc`, `.test.nsrc`, `.production.nsrc`).
+- Support multiple configuration files by environment (.nscrc (default), .development.nscrc, .test.nscrc, .production.nscrc).
 - All value can be overridden by env or args variable ([nconf](https://github.com/indexzero/nconf))
 
 ## Installation
@@ -24,14 +24,56 @@
 $ npm install -g @node-sitecore/config
 ```
 
+## Usage
+
+In node.js:
+```javascript
+const config = require('@node-sitecore/config');
+
+// getters
+console.log(config.currentWebsite) // Custom
+console.log(config.websiteRoot) // build/Website
+
+// get()
+
+console.log(config.get('bundles')) // Object {bundleName: "bundle", ...}
+
+// or
+
+console.log(config.get('bundles:bundleName') // bundle
+
+// has()
+console.log(config.has('bundle:bundleName')) // true
+
+
+// set()
+config.set('bundle:bundleName', "bundle-app");
+
+// resolver
+config.resolve('<rootDir>') // path/to/root
+config.resolve('<instanceDir>') // path/to/root/build
+config.resolve('<websiteDir>') // path/to/root/build/Website
+config.resolve('<themesDir>') // path/to/root/build/Website/themes
+config.resolve('<srcDir>') // path/to/root/src
+config.resolve('<projectDir>') // path/to/root/src/Project
+config.resolve('<featureDir>') // path/to/root/src/Feature
+config.resolve('<foundationDir>') // path/to/root/src/Foundation
+config.resolve('<currentDir>') // path/to/root/src/Project/Custom/code
+config.resolve('<masterDir>') // path/to/root/src/Project/Common/code
+
+// resolver + concat path
+config.resolve('<masterDir>', 'Styles') // path/to/root/src/Project/Common/code/Styles
+```
+
 ## Configuration fields
 
 Key | Default value | Tags | Description
 --- | --- | --- | ---
-currentWebsite | `Common` | Sitecore, Vuejs | Current code name of the sitecore website.
+currentWebsite | `Common` | Sitecore, Vuejs | Current code name of the Sitecore website (Can be the same as `masterWebsite`. It used for localisation process).
+masterWebsite | `Common` | Sitecore, Vuejs | Master code name of the Sitecore website.
 solutionName | `Base` | Sitecore | Solution name of the Visual Studio project.
 siteUrl | `http://base.dev.local` |  Sitecore | Site url use on your local machine. You change this value in a separated file like `.dev.nsrc`.
-instanceRoot | `http://base.dev.local` |  Sitecore | Directory the Sitecore files instance.
+instanceRoot | `http://base.dev.local` |  Sitecore | Path to the Sitecore instance directory.
 srcRoot | `./src` |  Sitecore | Source code directory.
 websiteRoot | `./website` |  Sitecore | Website directory used by Sitecore.
 foundationRoot | `./src/Foundation` |  Sitecore | Foundation level directory (Helix structure).
@@ -88,9 +130,49 @@ The priority of hierarchical configuration is defined like there :
 1. Default configuration from `@node-sitecore/config`,
 2. Arguments given by command line tools,
 3. Environment variables,
-4. From file `.nsrc`,
-5. From `.development.nsrc`, `.test.nsrc`, `.production.nsrc` or `[process.env.NODE_ENV].nsrc` according to `process.env.NODE_ENV` value.
+4. From file `.nscrc`,
+5. From `.development.nscrc`, `.test.nscrc`, `.production.nscrc` or `[process.env.NODE_ENV].nscrc` according to `process.env.NODE_ENV` value.
 
+### Getters
+
+Config instance has getters to provide some shortcut to resolve a path based on the main configuration and your local machine configuration (Mac or Windows).
+
+```javascript
+const config = require('@node-sitecore/config');
+
+// getters
+console.log(config.currentWebsite) // Custom
+console.log(config.websiteRoot) // build/Website
+```
+
+Getters | Example value | Description
+--- | --- | ---
+`config.currentWebsite` | `Custom` | Current website used by front-end and Sitecore
+`config.siteUrl` | `http://base.dev.local` | Site url configured on your local machine. Use `.development.nscrc`
+`config.authConfigFile` | `build/Website/App_config/Include/Unicorn/Unicorn.UI.config` | Path the unicorn script configuration.
+`config.instanceRoot` | `<rootDir>/build` | Path to the Sitecore instance directory.
+`config.buildRoot` | `./build` | Path to the Sitecore instance directory <em>1</em>.
+`config.websiteRoot` | `path/to/build/Website` | Path to the Website directory <em>1</em>.
+`config.themeWebsiteRoot` | `path/to/build/Website/themes` | Path to the themes directory <em>1</em>.
+`config.currentWebsiteRoot` | `path/to/build/Website/themes/Custom` | Path to the current Website directory <em>1</em>.
+`config.sitecoreLibrariesRoot` | `path/to/build/Website/bin` | Path to the Sitecore libraries directory <em>1</em>.
+`config.licensePath` | `path/to/build/Data/license.xml` | Path to the license file <em>1</em>.
+`config.solutionPath` | `path/to/Base.sln` | Path to the Visual Studio solution <em>1</em>.
+`config.websiteViewsRoot` | `path/to/build/Website/Views` | Path to the Views directory <em>1</em>.
+`config.websiteConfigRoot` | `path/to/build/Website/App_Config` | Path to the App_Config directory <em>1</em>.
+`config.srcRoot` | `path/to/build/Website/src` | Path to the source code directory <em>1</em>.
+`config.foundationRoot` | `path/to/build/Website/src/Foundation` | Path to the Foundation directory <em>1</em>.
+`config.foundationScriptsRoot` | `path/to/build/Website/src/Foundation/Core/code/Scripts` |  Path to the Foundation script directory <em>1</em>.
+`config.featureRoot` | `path/to/build/Website/src/Feature` | Path to the Feature directory <em>1</em>.
+`config.projectRoot` | `path/to/build/Website/src/Project` | Path to the Project directory <em>1</em>.
+`config.projectScriptsRoot` | `path/to/build/Website/src/Project/Custom/code/Scripts` | Path to the current Project scripts directory <em>1</em>.
+`config.currentProjectRoot` | `path/to/build/Website/src/Project/Custom/code` | Path to the current Project directory <em>1</em>.
+`config.directories` | '{}' | deprecated.
+`config.moduleNameMapper` | {} | module mapper configuration for jest.
+`config.bundles` | {} | bundles configuration for webpack.
+```
+
+<em>1<em> depending on local machine configuration.
 
 ## License
 

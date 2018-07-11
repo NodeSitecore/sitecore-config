@@ -8,6 +8,45 @@ const { DEFAULT_CONF } = require('./constant');
 class Config {
   constructor() {
     this.nconf = nconf;
+    this.placeholders = [
+      {
+        pattern: '<masterDir>',
+        replacement: path.join('<projectDir>', this.masterWebsite, 'code')
+      },
+      {
+        pattern: '<currentDir>',
+        replacement: path.join('<projectDir>', this.currentWebsite, 'code')
+      },
+      {
+        pattern: '<foundationDir>',
+        replacement: path.join('<rootDir>', this.nconf.get('foundationRoot'))
+      },
+      {
+        pattern: '<featureDir>',
+        replacement: path.join('<rootDir>', this.nconf.get('featureRoot'))
+      },
+      {
+        pattern: '<projectDir>',
+        replacement: path.join('<rootDir>', this.nconf.get('projectRoot'))
+      },
+      {
+        pattern: '<srcDir>',
+        replacement: path.join('<rootDir>', this.nconf.get('srcRoot'))
+      },
+      {
+        pattern: '<themesDir>',
+        replacement: path.join('<websiteDir>', 'themes')
+      },
+      {
+        pattern: '<websiteDir>',
+        replacement: path.join('<instanceDir>', this.nconf.get('websiteRoot'))
+      },
+      {
+        pattern: '<instanceDir>',
+        replacement: this.nconf.get('instanceRoot').replace('./', '<rootDir>/')
+      },
+      { pattern: '<rootDir>', replacement: `${process.cwd()}` }
+    ];
   }
 
   /**
@@ -16,12 +55,12 @@ class Config {
    * @returns {*}
    */
   get(key) {
-    if (key === 'instanceRoot') {
-      return formatPath(this.nconf.get(key)
-        .replace(/^\.(\/|\\)/, `${process.cwd()}/`))
-        .replace('<rootDir>', `${process.cwd()}`);
+    const value = this.nconf.get(key);
+    if (typeof value === 'string' && value.match(/<(.*)>/) || key === 'instanceRoot') {
+      return this.resolve(key === 'instanceRoot' ? value.replace(/^\.(\/|\\)/, `${process.cwd()}/`) : value);
     }
-    return this.nconf.get(key);
+
+    return value;
   }
 
   /**
@@ -52,7 +91,15 @@ class Config {
    * @returns {*}
    */
   get currentWebsite() {
-    return this.get('currentWebsite');
+    return this.nconf.get('currentWebsite');
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  get masterWebsite() {
+    return this.nconf.get('masterWebsite');
   }
 
   /**
@@ -68,7 +115,7 @@ class Config {
    * @returns {*|string}
    */
   get authConfigFile() {
-    return formatPath(path.join(this.websiteRoot, 'App_config', 'Include', 'Unicorn', 'Unicorn.UI.config'));
+    return this.resolve('<websiteDir>', 'App_config', 'Include', 'Unicorn', 'Unicorn.UI.config');
   }
 
   /**
@@ -76,7 +123,7 @@ class Config {
    * @returns {*|string}
    */
   get instanceRoot() {
-    return this.get('instanceRoot');
+    return this.resolve('<instanceDir>');
   }
 
   /**
@@ -84,8 +131,7 @@ class Config {
    * @returns {*}
    */
   get buildRoot() {
-    return formatPath(this.nconf.get('instanceRoot')
-      .replace('<rootDir>', '.'));
+    return formatPath(this.nconf.get('instanceRoot').replace('<rootDir>', '.'));
   }
 
   /**
@@ -93,7 +139,7 @@ class Config {
    * @returns {*|string}
    */
   get websiteRoot() {
-    return formatPath(path.join(this.instanceRoot, this.get('websiteRoot')));
+    return this.resolve('<websiteDir>');
   }
 
   /**
@@ -101,7 +147,7 @@ class Config {
    * @returns {*|string}
    */
   get themeWebsiteRoot() {
-    return formatPath(path.join(this.instanceRoot, this.get('websiteRoot'), 'themes'));
+    return this.resolve('<themesDir>');
   }
 
   /**
@@ -109,7 +155,7 @@ class Config {
    * @returns {*|string}
    */
   get currentWebsiteRoot() {
-    return formatPath(path.join(this.instanceRoot, this.get('websiteRoot'), 'themes', this.currentWebsite));
+    return this.resolve('<themesDir>', this.currentWebsite);
   }
 
   /**
@@ -117,7 +163,7 @@ class Config {
    * @returns {*|string}
    */
   get sitecoreLibrariesRoot() {
-    return formatPath(path.join(this.instanceRoot, this.get('sitecoreLibrariesRoot')));
+    return this.resolve('<instanceDir>', this.get('sitecoreLibrariesRoot'));
   }
 
   /**
@@ -125,7 +171,7 @@ class Config {
    * @returns {*|string}
    */
   get licensePath() {
-    return formatPath(path.join(this.instanceRoot, this.get('licensePath')));
+    return this.resolve('<instanceDir>', this.get('licensePath'));
   }
 
   /**
@@ -141,7 +187,7 @@ class Config {
    * @returns {*|string}
    */
   get websiteViewsRoot() {
-    return formatPath(path.join(this.websiteRoot, 'Views'));
+    return this.resolve('<websiteDir>', 'Views');
   }
 
   /**
@@ -149,7 +195,7 @@ class Config {
    * @returns {*|string}
    */
   get websiteConfigRoot() {
-    return formatPath(path.join(this.websiteRoot, 'App_Config'));
+    return this.resolve('<websiteDir>', 'App_Config');
   }
 
   /**
@@ -157,7 +203,7 @@ class Config {
    * @returns {string}
    */
   get srcRoot() {
-    return formatPath(this.get('srcRoot'));
+    return this.resolve('<srcDir>');
   }
 
   /**
@@ -165,7 +211,7 @@ class Config {
    * @returns {*}
    */
   get foundationRoot() {
-    return formatPath(this.get('foundationRoot'));
+    return this.resolve('<foundationDir>');
   }
 
   /**
@@ -173,7 +219,7 @@ class Config {
    * @returns {*}
    */
   get foundationScriptsRoot() {
-    return formatPath(`./${path.join(this.get('foundationRoot'), this.get('foundationScriptsRoot'))}`);
+    return this.resolve('<foundationDir>', this.nconf.get('foundationScriptsRoot'));
   }
 
   /**
@@ -181,7 +227,7 @@ class Config {
    * @returns {*}
    */
   get featureRoot() {
-    return formatPath(this.get('featureRoot'));
+    return this.resolve('<featureDir>');
   }
 
   /**
@@ -189,44 +235,62 @@ class Config {
    * @returns {*}
    */
   get projectRoot() {
-    return formatPath(this.get('projectRoot'));
+    return this.resolve('<projectDir>');
   }
 
   /**
-   *
+   * Path to the current project (master or localisation).
    * @returns {*}
    */
   get projectScriptsRoot() {
-    return formatPath(path.join(this.get('projectRoot'), this.currentWebsite, '/code/Scripts/'));
+    return this.resolve('<currentDir>', 'Scripts');
   }
 
+  /**
+   * Path to the current project (master or localisation).
+   * @returns {*}
+   */
   get currentProjectRoot() {
-    return formatPath(path.join(this.get('projectRoot'), this.currentWebsite, '/code/'));
+    return this.resolve('<currentDir>');
+  }
+
+  /**
+   * Path to the master project on Sitecore.
+   * @returns {*}
+   */
+  get masterProjectRoot() {
+    return this.resolve('<masterDir>');
   }
 
   /**
    *
+   * @deprecated
    * @returns {{src: string, featureDirectory: *, featureRoot: *, projectDirectory: *, projectRoot: *, foundationDirectory: *, buildDirectory: *, themeBuildDirectory: *|string}}
    */
   get directories() {
     return {
-      src: this.srcRoot,
-      featureDirectory: this.featureRoot,
-      featureRoot: this.featureRoot,
-      projectDirectory: this.projectRoot,
-      projectRoot: this.projectRoot,
-      foundationDirectory: this.foundationRoot,
-      buildDirectory: this.buildRoot,
+      src: this.srcRoot.replace(process.cwd(), '.'),
+      featureDirectory: this.featureRoot.replace(process.cwd(), '.'),
+      featureRoot: this.featureRoot.replace(process.cwd(), '.'),
+      projectDirectory: this.projectRoot.replace(process.cwd(), '.'),
+      projectRoot: this.projectRoot.replace(process.cwd(), '.'),
+      foundationDirectory: this.foundationRoot.replace(process.cwd(), '.'),
+      buildDirectory: this.buildRoot.replace(process.cwd(), '.'),
       themeBuildDirectory: this.themeWebsiteRoot.replace(process.cwd(), '.')
     };
   }
 
+  /**
+   *
+   * @returns {{'^@Foundation(.*)$': string, '^@Feature(.*)$': string, '^@Project(.*)$': string, '^@Master(.*)$': string, '^@/(.*)$': string}}
+   */
   get moduleNameMapper() {
     return {
-      '^@Foundation(.*)$': `${this.foundationScriptsRoot.replace('./', '<rootDir>/')}$1`,
-      '^@Feature(.*)$': `${this.featureRoot.replace('./', '<rootDir>/')}$1`,
-      '^@Project(.*)$': `${this.projectRoot.replace('./', '<rootDir>/')}$1`,
-      '^@/(.*)$': `${this.srcRoot.replace('./', '<rootDir>/')}/$1`
+      '^@Foundation(.*)$': `${this.foundationScriptsRoot.replace(process.cwd(), '<rootDir>')}$1`,
+      '^@Feature(.*)$': `${this.featureRoot.replace(process.cwd(), '<rootDir>')}$1`,
+      '^@Project(.*)$': `${this.projectRoot.replace(process.cwd(), '<rootDir>')}$1`,
+      '^@Master(.*)$': `${this.masterProjectRoot.replace(process.cwd(), '<rootDir>')}$1`,
+      '^@/(.*)$': `${this.srcRoot.replace(process.cwd(), '<rootDir>')}/$1`
     };
   }
 
@@ -246,7 +310,10 @@ class Config {
     return this.get('bundles');
   }
 
-
+  /**
+   *
+   * @returns {*|Array}
+   */
   get proxyUrls() {
     return this.get('proxyUrls') || [];
   }
@@ -281,6 +348,21 @@ class Config {
    */
   save() {
     this.nconf.save();
+  }
+
+  /**
+   *
+   * @param values
+   * @returns {*}
+   */
+  resolve(...values) {
+    let value = formatPath(path.join(...values));
+
+    this.placeholders.forEach((placeholder) => {
+      value = value.replace(placeholder.pattern, placeholder.replacement);
+    });
+
+    return value;
   }
 }
 

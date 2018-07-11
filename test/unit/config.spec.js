@@ -1,3 +1,4 @@
+const path = require('path');
 const { expect, Sinon } = require('../tools');
 const config = require('../../src/config');
 const formatPath = require('../../src/format-path');
@@ -6,6 +7,54 @@ describe('Config', () => {
   describe('has()', () => {
     it('should return true', () => expect(config.has('siteUrl')).to.be.true);
     it('should return false', () => expect(config.has('siteUrl2')).to.be.false);
+  });
+
+  describe('get()', () => {
+    it('should return the right path from instanceRoot>', () => {
+      expect(config.get('instanceRoot')).to.equal(path.join(process.cwd(), 'build'));
+    });
+  });
+
+  describe('resolve()', () => {
+    it('should return the right path from <rootDir>', () => {
+      expect(config.resolve('<rootDir>')).to.equal(process.cwd());
+    });
+
+    it('should return the right path from <instanceDir>', () => {
+      expect(config.resolve('<instanceDir>')).to.equal(path.join(process.cwd(), 'build'));
+    });
+
+    it('should return the right path from <websiteDir>', () => {
+      expect(config.resolve('<websiteDir>')).to.equal(path.join(process.cwd(), 'build', 'Website'));
+    });
+
+    it('should return the right path from <themesDir>', () => {
+      expect(config.resolve('<themesDir>')).to.equal(path.join(process.cwd(), 'build', 'Website', 'themes'));
+    });
+
+    it('should return the right path from <srcDir>', () => {
+      expect(config.resolve('<srcDir>')).to.equal(path.join(process.cwd(), 'src'));
+    });
+
+    it('should return the right path from <projectDir>', () => {
+      expect(config.resolve('<projectDir>')).to.equal(path.join(process.cwd(), 'src', 'Project'));
+    });
+
+    it('should return the right path from <featureDir>', () => {
+      expect(config.resolve('<featureDir>')).to.equal(path.join(process.cwd(), 'src', 'Feature'));
+    });
+
+    it('should return the right path from <foundationDir>', () => {
+      expect(config.resolve('<foundationDir>')).to.equal(path.join(process.cwd(), 'src', 'Foundation'));
+    });
+
+    it('should return the right path from <currentDir>', () => {
+      expect(config.resolve('<currentDir>')).to.equal(path.join(process.cwd(), 'src', 'Project', 'Common', 'code'));
+    });
+
+    it('should return the right path from <masterDir>', () => {
+      expect(config.resolve('<masterDir>')).to.equal(path.join(process.cwd(), 'src', 'Project', 'Common', 'code'));
+    });
   });
 
   describe('save()', () => {
@@ -85,7 +134,7 @@ describe('Config', () => {
     });
 
     it('should return instanceRoot', () => {
-      expect(config.instanceRoot.replace(process.cwd(), '')).to.contains(formatPath('/build'));
+      expect(config.instanceRoot).to.contains(formatPath('/build'));
     });
 
     it('should return buildRoot', () => {
@@ -121,34 +170,34 @@ describe('Config', () => {
     });
 
     it('should return websiteConfigRoot', () => {
-      expect(config.websiteConfigRoot).to.contains(formatPath('build/Website/App_Config'));
+      expect(config.websiteConfigRoot).to.equal(formatPath(path.join(process.cwd(), 'build/Website/App_Config')));
     });
 
     it('should return srcRoot', () => {
-      expect(config.srcRoot).to.contains(formatPath('./src'));
+      expect(config.srcRoot).to.equal(formatPath(path.join(process.cwd(), 'src')));
     });
 
     it('should return foundationRoot', () => {
-      expect(config.foundationRoot).to.contains(formatPath('./src'));
+      expect(config.foundationRoot).to.equal(formatPath(path.join(process.cwd(), 'src/Foundation')));
     });
 
     it('should return foundationScriptsRoot', () => {
-      expect(config.foundationScriptsRoot).to.contains(formatPath('./src/Foundation/Core/code/Scripts'));
+      expect(config.foundationScriptsRoot).to.contains(formatPath(path.join(process.cwd(), 'src/Foundation/Core/code/Scripts')));
     });
 
     it('should return featureRoot', () => {
-      expect(config.featureRoot).to.contains(formatPath('./src'));
+      expect(config.featureRoot).to.equal(formatPath(path.join(process.cwd(), 'src/Feature')));
     });
 
     it('should return projectRoot', () => {
-      expect(config.projectRoot).to.contains(formatPath('./src'));
+      expect(config.projectRoot).to.contains(formatPath(path.join(process.cwd(), 'src/Project')));
     });
 
     it('should return projectScriptsRoot', () => {
-      expect(config.projectScriptsRoot).to.contains(formatPath('src/Project/Common/code/Scripts/'));
+      expect(config.projectScriptsRoot).to.contains(formatPath(path.join(process.cwd(), 'src/Project/Common/code/Scripts')));
     });
     it('should return currentProjectRoot', () => {
-      expect(config.currentProjectRoot).to.contains(formatPath('src/Project/Common/code/'));
+      expect(config.currentProjectRoot).to.equal(formatPath(path.join(process.cwd(), 'src/Project/Common/code')));
     });
 
     it('should return directories', () => {
@@ -185,6 +234,7 @@ describe('Config', () => {
         '^@/(.*)$': '<rootDir>/src/$1',
         '^@Feature(.*)$': '<rootDir>/src/Feature$1',
         '^@Foundation(.*)$': '<rootDir>/src/Foundation/Core/code/Scripts$1',
+        '^@Master(.*)$': '<rootDir>/src/Project/Common/code$1',
         '^@Project(.*)$': '<rootDir>/src/Project$1'
       });
     });
