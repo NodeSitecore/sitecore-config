@@ -45,6 +45,10 @@ class Config {
         pattern: '<instanceDir>',
         replacement: this.nconf.get('instanceRoot').replace(/^\.(\/|\\)/, '<rootDir>/')
       },
+      {
+        pattern: '<solutionPath>',
+        replacement: `<rootDir>/${this.nconf.get('solutionName')}.sln`
+      },
       { pattern: '<rootDir>', replacement: `${process.cwd()}` }
     ];
   }
@@ -179,7 +183,7 @@ class Config {
    * @returns {string}
    */
   get solutionPath() {
-    return this.resolve(`<rootDir>/${this.get('solutionName')}.sln`);
+    return this.resolve('<solutionPath>');
   }
 
   /**
@@ -316,6 +320,35 @@ class Config {
    */
   get proxyUrls() {
     return this.get('proxyUrls') || [];
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  get buildPaths() {
+    const paths = this.get('buildPaths') || [];
+    if (paths.length) {
+      return paths.map((p) => this.resolve(p));
+    }
+
+    /* istanbul ignore next */
+    return [this.solutionPath];
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  get publishPaths() {
+    const paths = this.get('publishPaths') || [];
+
+    if (paths.length) {
+      return paths.map((p) => this.resolve(p));
+    }
+
+    /* istanbul ignore next */
+    return [this.solutionPath];
   }
 
   /**

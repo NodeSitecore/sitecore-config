@@ -167,21 +167,28 @@ Getters | Example value | Description
 `config.projectRoot` | `path/to/build/Website/src/Project` | Path to the Project directory <em>1</em>.
 `config.projectScriptsRoot` | `path/to/build/Website/src/Project/Custom/code/Scripts` | Path to the current Project scripts directory <em>1</em>.
 `config.currentProjectRoot` | `path/to/build/Website/src/Project/Custom/code` | Path to the current Project directory <em>1</em>.
-`config.directories` | '{}' | deprecated.
-`config.moduleNameMapper` | {} | module mapper configuration for jest.
-`config.bundles` | {} | bundles configuration for webpack.
+`config.directories` | `{}` | deprecated.
+`config.moduleNameMapper` | `{}` | module mapper configuration for jest.
+`config.bundles` | `{}` | bundles configuration for webpack.
+`config.buildPaths` | `[<solutionPath>]` | List of solutions or projects given to the command `nsc build`.
+`config.publishPaths` | `[<solutionPath>]` |  List of solutions or projects given to the command `nsc publish`.
 ```
 
 <em>1<em> depending on local machine configuration.
+## Contributing
+
+Read our [contribution documentation](./CONTRIBUTING.md).
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2018
+Copyright (c) 2018 NodeSitecore
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[travis]: https://travis-ci.org/
