@@ -162,7 +162,7 @@ describe('Config', () => {
     });
 
     it('should return solutionPath', () => {
-      expect(config.solutionPath).to.contains(formatPath('./Base.sln'));
+      expect(config.solutionPath).to.contains(formatPath(path.join(process.cwd(), 'Base.sln')));
     });
 
     it('should return websiteViewsRoot', () => {

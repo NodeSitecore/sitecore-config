@@ -179,7 +179,7 @@ class Config {
    * @returns {string}
    */
   get solutionPath() {
-    return formatPath(`./${this.get('solutionName')}.sln`);
+    return this.resolve(`<rootDir>/${this.get('solutionName')}.sln`);
   }
 
   /**
