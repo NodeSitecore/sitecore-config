@@ -196,6 +196,7 @@ describe('Config', () => {
     it('should return projectScriptsRoot', () => {
       expect(config.projectScriptsRoot).to.contains(formatPath(path.join(process.cwd(), 'src/Project/Common/code/Scripts')));
     });
+
     it('should return currentProjectRoot', () => {
       expect(config.currentProjectRoot).to.equal(formatPath(path.join(process.cwd(), 'src/Project/Common/code')));
     });
@@ -237,6 +238,14 @@ describe('Config', () => {
         '^@Master(.*)$': '<rootDir>/src/Project/Common/code$1',
         '^@Project(.*)$': '<rootDir>/src/Project$1'
       });
+    });
+
+    it('should return publishPaths', () => {
+      expect(config.publishPaths).to.deep.equal([config.solutionPath]);
+    });
+
+    it('should return buildPaths', () => {
+      expect(config.buildPaths).to.deep.equal([config.solutionPath]);
     });
   });
 });

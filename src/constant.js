@@ -117,6 +117,12 @@ module.exports = {
      */
     buildTargets: ['Build'],
     /**
+     * Publish all solutions or/and projects. Support glob patterns.
+     */
+    buildPaths: [
+      '<solutionPath>'
+    ],
+    /**
      * Build platform (e.g. x86, x64, Any CPU).
      * @tags MsBuild
      */
@@ -133,6 +139,12 @@ module.exports = {
      * @tags MsBuild
      */
     publishTargets: ['Build'],
+    /**
+     * Publish all solutions or/and projects. Support glob patterns.
+     */
+    publishPaths: [
+      '<solutionPath>'
+    ],
     /**
      * Publish platform (e.g. x86, x64, AnyCpu).
      * @tags MsBuild
