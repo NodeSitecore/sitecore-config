@@ -49,6 +49,10 @@ class Config {
         pattern: '<solutionPath>',
         replacement: `<rootDir>/${this.nconf.get('solutionName')}.sln`
       },
+      // {
+      //   pattern: '<siteName>',
+      //   replacement: this.nconf.get('siteName')
+      // },
       { pattern: '<rootDir>', replacement: `${process.cwd()}` }
     ];
   }
@@ -110,6 +114,14 @@ class Config {
    *
    * @returns {*}
    */
+  // get siteName() {
+  //   return this.get('siteName');
+  // }
+
+  /**
+   *
+   * @returns {*}
+   */
   get siteUrl() {
     return this.get('siteUrl');
   }
@@ -119,7 +131,15 @@ class Config {
    * @returns {*|string}
    */
   get authConfigFile() {
-    return this.resolve('<websiteDir>', 'App_config', 'Include', 'Unicorn', 'Unicorn.UI.config');
+    return this.get('authConfigFilePath');
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  get authConfigFilePath() {
+    return this.authConfigFile;
   }
 
   /**

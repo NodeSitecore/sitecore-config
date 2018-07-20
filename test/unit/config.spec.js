@@ -126,11 +126,15 @@ describe('Config', () => {
     });
 
     it('should return siteUrl', () => {
-      expect(config.siteUrl).to.eq('http://base.dev.local');
+      expect(config.siteUrl).to.eq('https://base.dev.local');
     });
 
     it('should return authConfigFile', () => {
       expect(config.authConfigFile).to.contains(formatPath('build/Website/App_config/Include/Unicorn/Unicorn.UI.config'));
+    });
+
+    it('should return authConfigFile', () => {
+      expect(config.authConfigFilePath).to.contains(formatPath('build/Website/App_config/Include/Unicorn/Unicorn.UI.config'));
     });
 
     it('should return instanceRoot', () => {

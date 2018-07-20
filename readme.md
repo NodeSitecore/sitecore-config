@@ -73,6 +73,7 @@ currentWebsite | `Common` | Sitecore, Vuejs | Current code name of the Sitecore
 masterWebsite | `Common` | Sitecore, Vuejs | Master code name of the Sitecore website.
 solutionName | `Base` | Sitecore | Solution name of the Visual Studio project.
 siteUrl | `http://base.dev.local` |  Sitecore | Site url use on your local machine. You change this value in a separated file like `.dev.nsrc`.
+authConfigFilePath | `path/to//Unicorn.UI.config` | Auth config file path required by Unicorn task.
 instanceRoot | `http://base.dev.local` |  Sitecore | Path to the Sitecore instance directory.
 srcRoot | `./src` |  Sitecore | Source code directory.
 websiteRoot | `./website` |  Sitecore | Website directory used by Sitecore.
