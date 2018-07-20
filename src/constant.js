@@ -10,6 +10,7 @@ module.exports = {
    *
    */
   DEFAULT_CONF: {
+    // siteName: 'dev-common',
     /**
      * Current code name of the sitecore website.
      * @tags Sitecore, Vuejs
@@ -28,7 +29,7 @@ module.exports = {
      * Site url use on your local machine. You change this value in a separated file like `.dev.nsrc`.
      * @tags Sitecore
      */
-    siteUrl: 'http://base.dev.local',
+    siteUrl: 'https://base.dev.local',
     /**
      * Directory the Sitecore files instance.
      * @tags Sitecore
@@ -75,6 +76,11 @@ module.exports = {
      */
     licensePath: '<instanceDir>/Data/license.xml',
     /**
+     * Auth config file path required by Unicorn task.
+     * @tags Unicorn
+     */
+    authConfigFilePath: '<websiteDir>/App_config/Include/Unicorn/Unicorn.UI.config',
+    /**
      * MsBuild Configuration (Release or Debug).
      * @tags MsBuild
      */
@@ -108,14 +114,14 @@ module.exports = {
      * Exclude files from the deployment on the Sitecore instance.
      * @tags MsBuild
      */
-    excludeFilesFromDeployment: ['packages.config'],
+    excludeFilesFromDeployment: [ 'packages.config' ],
 
     // build
     /**
      * Build targets options (`Build`, `Clean`, `Rebuild`).
      * @tags MsBuild
      */
-    buildTargets: ['Build'],
+    buildTargets: [ 'Build' ],
     /**
      * Publish all solutions or/and projects. Support glob patterns.
      */
@@ -138,7 +144,7 @@ module.exports = {
      * Publish targets options (`Build`, `Clean`, `Rebuild`).
      * @tags MsBuild
      */
-    publishTargets: ['Build'],
+    publishTargets: [ 'Build' ],
     /**
      * Publish all solutions or/and projects. Support glob patterns.
      */
@@ -169,7 +175,33 @@ module.exports = {
       bundleName: 'bundle',
       polyfills: 'polyfills',
       styleguide: 'styleguide'
-    }
+    },
+
+    // install: {
+    //   customInstallPath: '',
+    //   configPath: '<rootDir>/config/xp-sitecore-cm-82-pse-sxa-wffm.json',
+    //   modulesRoot: '<rootDir>/files/modules',
+    //   sitecorePath: '<rootDir>/files/8.2 rev. 170614/Sitecore 8.2 rev. 170614_single.scwdp.zip',
+    //   cargoPayloadRoot: '<rootDir>/Modules/Sitecore Azure Toolkit 2.0.3 rev. 180328/resources/8.2.4/CargoPayloads',
+    //   ioXMLRoot: '<rootDir>/Modules/ioxml',
+    //   bootloadPath: '<rootDir>/Modules/Sitecore Azure Toolkit 2.0.3 rev. 180328/resources/8.2.4/Addons/Sitecore.Cloud.Integration.Bootload.wdp.zip',
+    //   cloudSearchConnectionString: '',
+    //   skipWFFM: false,
+    //
+    //   modules: {
+    //     pse: 'Sitecore PowerShell Extensions-4.7.2 for Sitecore 8.scwdp.zip',
+    //     sxa: 'Sitecore Experience Accelerator 1.4 rev. 170623 for 8.2.scwdp.zip',
+    //     wffm: 'Web Forms for Marketers 8.2 rev. 170518_single.scwdp.zip'
+    //   }
+    // },
+    /**
+     * @tags Sitecore
+     */
+    // sql: {
+    //   path: './SQLEXPRESS',
+    //   user: '',
+    //   password: ''
+    // }
   },
   /**
    *
