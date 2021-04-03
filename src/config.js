@@ -417,6 +417,16 @@ class Config {
 
     return value;
   }
+
+  toObject() {
+    // console.log('this.nconf.stores.file', this.nconf.stores.default)
+    const obj = this.nconf.stores.default.store;
+    return Object.keys(obj).reduce((acc, key) => {
+      acc[key] = this.get(key);
+
+      return acc;
+    }, {});
+  }
 }
 
 module.exports = new Config();
